@@ -1,6 +1,7 @@
 package quick_sort
 
 import (
+	"math"
 	"math/rand"
 	"sort"
 	"testing"
@@ -15,11 +16,16 @@ func TestQuickSort(t *testing.T) {
 			for i := 0; i < 20; i++ {
 				nums := make([]int, 1000)
 				rand.Seed(time.Now().UnixNano())
-				for i := 0; i < 100; i++ {
-					nums[i] = rand.Intn(100)
+				for i := 0; i < len(nums); i++ {
+					nums[i] = rand.Intn(math.MaxInt64)
+				}
+				photo := make([]int, len(nums))
+				for i, v := range nums {
+					photo[i] = v
 				}
 				QuickSort(nums)
-				So(sort.IntsAreSorted(nums), ShouldResemble, true)
+				sort.Ints(photo)
+				So(nums, ShouldResemble, photo)
 			}
 		})
 	})
